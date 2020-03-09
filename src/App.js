@@ -23,6 +23,11 @@ import {
   Dashboard
 }                   from './views';
 
+/* Components */
+import {
+  Navbar
+}                   from './components';
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -43,6 +48,7 @@ const App = () => {
       <Router>
         <Switch>
           <Route path="/dashboard">
+            <Navbar />
             <Dashboard />
           </Route>
           <Route path="/">
