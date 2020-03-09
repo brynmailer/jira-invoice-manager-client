@@ -7,6 +7,7 @@ import {
 import {
   Container,
   Typography,
+  Paper,
   Grid,
   TextField,
   Button
@@ -39,18 +40,13 @@ const useStyles = makeStyles(theme => ({
     width: '200px'
   },
   loginContainer: {
+    marginTop: theme.spacing(4),
     padding: theme.spacing(3)
-  },
-  loginTitle: {
-    margin: theme.spacing(3)
   },
   loginInput: {
     marginBottom: theme.spacing(1)
   },
-  loginSubmitContainer: {
-    width: '75%'
-  },
-  loginSubmit: {
+  loginButton: {
     width: '100%'
   }
 }));
@@ -79,22 +75,7 @@ const Landing = () => {
         >
           The Jira integrated invoice manager
         </Typography>
-        <Grid
-          className={classes.loginContainer}
-          container
-          direction="column"
-          justify="space-around"
-          alignItems="center"
-        >
-          <Typography
-            className={classes.loginTitle}
-            component={Grid}
-            item
-            variant="h6"
-            align="center"
-          >
-            Log In
-          </Typography>
+        <Paper className={classes.loginContainer}>
           <Grid 
             component="form"
             noValidate 
@@ -103,7 +84,7 @@ const Landing = () => {
             container
             direction="column"
             justify="space-around"
-            alignItems="center"
+            alignItems="stretch"
           >
             <TextField
               component={Grid}
@@ -120,21 +101,22 @@ const Landing = () => {
               item
             />
             <Grid
-              className={classes.loginSubmitContainer}
+              className={classes.loginButtonContainer}
               item
+              xs={12}
             >
               <Button
-                className={classes.loginSubmit}
+                className={classes.loginButton}
                 component={Link}
                 variant="contained"
                 color="primary"
                 to="/dashboard"
               >
-                Submit
+                Login
               </Button>
             </Grid>
           </Grid>
-        </Grid>
+        </Paper>
       </Container>
     </>
   );

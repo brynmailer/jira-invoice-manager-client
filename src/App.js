@@ -19,7 +19,8 @@ import {
 
 /* Views */
 import {
-  Landing
+  Landing,
+  Dashboard
 }                   from './views';
 
 const theme = createMuiTheme({
@@ -42,6 +43,7 @@ const App = () => {
       <Router>
         <Switch>
           <Route path="/dashboard">
+            <Dashboard />
           </Route>
           <Route path="/">
             <Landing />
