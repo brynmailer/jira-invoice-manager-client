@@ -1,5 +1,7 @@
-import Navbar from './Navbar';
+import Navbar     from './Navbar';
+import Background from './Background';
 
 export {
-  Navbar
+  Navbar,
+  Background
 };

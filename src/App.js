@@ -25,7 +25,8 @@ import {
 
 /* Components */
 import {
-  Navbar
+  Navbar,
+  Background
 }                   from './components';
 
 const theme = createMuiTheme({
@@ -49,10 +50,14 @@ const App = () => {
         <Switch>
           <Route path="/dashboard">
             <Navbar />
-            <Dashboard />
+            <Background>
+              <Dashboard />
+            </Background>
           </Route>
           <Route path="/">
-            <Landing />
+            <Background>
+              <Landing />
+            </Background>
           </Route>
         </Switch>
       </Router>
