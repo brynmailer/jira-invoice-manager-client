@@ -14,7 +14,8 @@ import {
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Redirect
 }                   from 'react-router-dom';
 
 /* Views */
@@ -48,6 +49,7 @@ const App = () => {
       <CssBaseline />
       <Router>
         <Switch>
+          <Redirect from="/logout" to="/" />
           <Route path="/dashboard">
             <Navbar />
             <Background>
