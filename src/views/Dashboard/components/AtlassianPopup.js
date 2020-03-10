@@ -73,7 +73,7 @@ const AtlassianPopup = ({ authorized, handleAuthorize }) => {
             color="primary"
             variant="contained"
             item
-            onClick={handleAuthorize}
+            onClick={() => handleAuthorize(true)}
           >
             Log in with Atlassian
           </Button>

@@ -1,22 +1,23 @@
 import React        from 'react';
 
-/* Material UI */
-
-
 /* Components */
 import {
-  AtlassianPopup
+  AtlassianPopup,
+  Overview
 }                   from './components';
 
-const Landing = () => {
-  const [ authorized, setAuthorized ] = React.useState(false);
+const Dashboard = () => {
+  const [ authorized, setAuthorized ] = React.useState(true);
 
   return (
-    <AtlassianPopup
-      authorized={authorized}
-      handleAuthorize={setAuthorized}
-    />
+    <>
+      <AtlassianPopup
+        authorized={authorized}
+        handleAuthorize={setAuthorized}
+      />
+      <Overview authorized={authorized} />
+    </>
   );
 }
 
-export default Landing;
+export default Dashboard;
