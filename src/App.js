@@ -21,7 +21,9 @@ import {
 /* Views */
 import {
   Landing,
-  Dashboard
+  Dashboard,
+  Settings,
+  Invoices
 }                   from './views';
 
 /* Components */
@@ -54,6 +56,18 @@ const App = () => {
             <Navbar />
             <Background>
               <Dashboard />
+            </Background>
+          </Route>
+          <Route path="/settings">
+            <Navbar />
+            <Background>
+              <Settings />
+            </Background>
+          </Route>
+          <Route path="/invoices">
+            <Navbar />
+            <Background>
+              <Invoices />
             </Background>
           </Route>
           <Route path="/">

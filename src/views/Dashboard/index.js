@@ -7,7 +7,7 @@ import {
 }                   from './components';
 
 const Dashboard = () => {
-  const [ authorized, setAuthorized ] = React.useState(true);
+  const [ authorized, setAuthorized ] = React.useState(false);
 
   return (
     <>

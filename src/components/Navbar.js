@@ -24,11 +24,14 @@ import {
 }                     from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
+  location: {
+    position: 'fixed',
+    left: '50%',
+    marginRight: '-50%',
+    transform: 'translate(-50%)'
+  },
   list: {
     width: 250
-  },
-  spacer: {
-    flexGrow: 1
   }
 }));
 
@@ -54,8 +57,16 @@ const Navbar = () => {
           >
             <MenuIcon />
           </IconButton>
-          <div className={classes.spacer} />
-          <Typography variant="h6">Greetings, User!</Typography>
+          <Typography
+            className={classes.location}
+            variant="h6"
+          >
+            {location.pathname === '/dashboard' ? 'Dashboard'
+              : location.pathname === '/groups' ? 'Groups'
+                : location.pathname === '/invoices' ? 'Invoices'
+                  : location.pathname === '/settings' ? 'Settings'
+                    : null}
+          </Typography>
         </Toolbar>
       </AppBar>
       <SwipeableDrawer
@@ -95,7 +106,7 @@ const Navbar = () => {
                 <ListItemText
                   primary={text}
                   primaryTypographyProps={{
-                    color: text === 'Logout' ? 'error' : ''
+                    color: text === 'Logout' ? 'error' : 'initial'
                   }}
                 />
               </ListItem>
