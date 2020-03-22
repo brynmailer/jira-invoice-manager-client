@@ -62,7 +62,7 @@ const Navbar = () => {
             variant="h6"
           >
             {location.pathname === '/dashboard' ? 'Dashboard'
-              : location.pathname === '/groups' ? 'Groups'
+              : location.pathname === '/projects' ? 'Projects'
                 : location.pathname === '/invoices' ? 'Invoices'
                   : location.pathname === '/settings' ? 'Settings'
                     : null}
@@ -83,7 +83,7 @@ const Navbar = () => {
           onKeyDown={toggleMenu(false)}
         >
           <List>
-            {['Dashboard', 'Groups', 'Invoices'].map((text, index) => (
+            {['Dashboard', 'Projects', 'Invoices'].map((text, index) => (
               <ListItem
                 component={Link}
                 button

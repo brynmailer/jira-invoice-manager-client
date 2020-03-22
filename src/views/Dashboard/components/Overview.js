@@ -79,9 +79,9 @@ const Overview = ({ authorized }) => {
                 component={Link}
                 color="primary"
                 variant="outlined"
-                to="/groups"
+                to="/projets"
               >
-                View Your Groups
+                View Your Projects
               </Button>
             </Grid>
           </Grid>
