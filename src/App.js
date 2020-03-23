@@ -23,7 +23,8 @@ import {
   Landing,
   Dashboard,
   Settings,
-  Invoices
+  Invoices,
+  Projects
 }                   from './views';
 
 /* Components */
@@ -68,6 +69,12 @@ const App = () => {
             <Navbar />
             <Background>
               <Invoices />
+            </Background>
+          </Route>
+          <Route path="/projects">
+            <Navbar />
+            <Background>
+              <Projects />
             </Background>
           </Route>
           <Route path="/">

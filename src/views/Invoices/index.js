@@ -1,57 +1,33 @@
 import React        from 'react';
 
-/* Material UI */
-import {
-  makeStyles
-}                   from '@material-ui/core/styles';
-import {
-  Paper,
-  TableContainer,
-  Table,
-  TableBody,
-  TableHead,
-  TableRow,
-  TableCell
-}                   from '@material-ui/core';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    height: '100%'
-  }
-}));
+/* Material Table */
+import MaterialTable      from 'material-table';
 
 const Invoices = () => {
-  const classes = useStyles();
-
   return (
-    <TableContainer
-      className={classes.root}
-      component={Paper}
-    >
-      <Table stickyHeader>
-        <TableHead>
-          <TableRow>
-            <TableCell>Bill To</TableCell>
-            <TableCell align="right">Inv No</TableCell>
-            <TableCell align="right">Total (AUD)</TableCell>
-            <TableCell align="right">Status</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(row => (
-            <TableRow
-              hover
-              key={row}
-            >
-              <TableCell>Example Company</TableCell>
-              <TableCell align="right">{row + 100}</TableCell>
-              <TableCell align="right">5000</TableCell>
-              <TableCell align="right">Paid</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <MaterialTable
+      columns={[
+        { title: 'Bill To', field: 'billTo' },
+        { title: 'Number', field: 'invoiceNo' },
+        { title: 'Total', field: 'total' },
+        { title: 'Status', field: 'status' }
+      ]}
+      data={[
+        { billTo: 'Test Company', invoiceNo: '101', total: '$5000', status: 'paid' },
+        { billTo: 'Test Company', invoiceNo: '102', total: '$5000', status: 'overdue' },
+        { billTo: 'Test Company', invoiceNo: '103', total: '$5000', status: 'issued' },
+        { billTo: 'Test Company', invoiceNo: '104', total: '$5000', status: 'issued' },
+        { billTo: 'Test Company', invoiceNo: '105', total: '$5000', status: 'paid' },
+        { billTo: 'Test Company', invoiceNo: '106', total: '$5000', status: 'overdue' },
+        { billTo: 'Test Company', invoiceNo: '107', total: '$5000', status: 'overdue' },
+        { billTo: 'Test Company', invoiceNo: '108', total: '$5000', status: 'paid' }
+      ]}
+      options={{
+        showTitle: false,
+        pageSize: 10,
+        pageSizeOptions: [ 5, 10, 20 ]
+      }}
+    />
   );
 }
 
