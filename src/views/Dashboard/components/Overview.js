@@ -79,7 +79,7 @@ const Overview = ({ authorized }) => {
                 component={Link}
                 color="primary"
                 variant="outlined"
-                to="/projets"
+                to="/projects"
               >
                 View Your Projects
               </Button>
