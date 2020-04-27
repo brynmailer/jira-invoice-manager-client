@@ -1,33 +1,22 @@
 import React        from 'react';
 
-/* Material Table */
-import MaterialTable      from 'material-table';
+/* React Router */
+import { Switch, Route } from 'react-router-dom';
+
+/* Local Components */
+import { ViewInvoices, CreateInvoice } from './views';
 
 const Invoices = () => {
+
   return (
-    <MaterialTable
-      columns={[
-        { title: 'Bill To', field: 'billTo' },
-        { title: 'Number', field: 'invoiceNo' },
-        { title: 'Total', field: 'total' },
-        { title: 'Status', field: 'status' }
-      ]}
-      data={[
-        { billTo: 'Test Company', invoiceNo: '101', total: '$5000', status: 'paid' },
-        { billTo: 'Test Company', invoiceNo: '102', total: '$5000', status: 'overdue' },
-        { billTo: 'Test Company', invoiceNo: '103', total: '$5000', status: 'issued' },
-        { billTo: 'Test Company', invoiceNo: '104', total: '$5000', status: 'issued' },
-        { billTo: 'Test Company', invoiceNo: '105', total: '$5000', status: 'paid' },
-        { billTo: 'Test Company', invoiceNo: '106', total: '$5000', status: 'overdue' },
-        { billTo: 'Test Company', invoiceNo: '107', total: '$5000', status: 'overdue' },
-        { billTo: 'Test Company', invoiceNo: '108', total: '$5000', status: 'paid' }
-      ]}
-      options={{
-        showTitle: false,
-        pageSize: 10,
-        pageSizeOptions: [ 5, 10, 20 ]
-      }}
-    />
+    <Switch>
+      <Route path="/invoices/create">
+        <CreateInvoice />
+      </Route>
+      <Route path="/invoices">
+        <ViewInvoices />
+      </Route>
+    </Switch>
   );
 }
 
