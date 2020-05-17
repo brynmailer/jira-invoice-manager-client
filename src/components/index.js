@@ -1,7 +1,9 @@
-import Navbar     from './Navbar';
-import Background from './Background';
+import Navbar       from './Navbar';
+import Page   from './Page';
+import PrivateRoute from './PrivateRoute';
 
 export {
   Navbar,
-  Background
+  Page,
+  PrivateRoute
 };

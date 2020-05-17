@@ -1,10 +1,16 @@
-import React        from 'react';
+import React                from 'react';
 
 /* React Router */
-import { Switch, Route } from 'react-router-dom';
+import {
+  Switch,
+  Route
+}                           from 'react-router-dom';
 
-/* Local Components */
-import { ViewInvoices, CreateInvoice } from './views';
+/* Views */
+import {
+  ViewInvoices,
+  CreateInvoice
+}                           from './views';
 
 const Invoices = () => {
 

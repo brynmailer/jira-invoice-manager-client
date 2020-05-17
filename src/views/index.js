@@ -1,11 +1,11 @@
-import Landing      from './Landing';
+import Login        from './Login';
 import Dashboard    from './Dashboard';
 import Settings     from './Settings';
 import Invoices     from './Invoices';
 import Projects     from './Projects';
 
 export {
-  Landing,
+  Login,
   Dashboard,
   Settings,
   Invoices,

@@ -48,7 +48,7 @@ const Navbar = () => {
 
   return (
     <>
-      <AppBar position="sticky">
+      <AppBar position="fixed">
         <Toolbar>
           <IconButton
             color="secondary"
@@ -61,7 +61,7 @@ const Navbar = () => {
             className={classes.location}
             variant="h6"
           >
-            {location.pathname === '/dashboard' ? 'Dashboard'
+            {location.pathname === '/' ? 'Dashboard'
               : location.pathname === '/projects' ? 'Projects'
                 : location.pathname === '/invoices' ? 'Invoices'
                   : location.pathname === '/settings' ? 'Settings'
@@ -88,7 +88,7 @@ const Navbar = () => {
                 component={Link}
                 button
                 key={text}
-                to={`/${text.toLowerCase()}`}
+                to={text === 'Dashboard' ? `/` : `/${text.toLowerCase()}`}
                 selected={location.pathname === `/${text.toLowerCase()}`}
               >
                 <ListItemText primary={text} />
@@ -114,6 +114,7 @@ const Navbar = () => {
           </List>
         </div>
       </SwipeableDrawer>
+      <Toolbar />
     </>
   );
 }
