@@ -40,7 +40,7 @@ import {
 
 /* Context */
 import {
-  AuthContext
+  AuthWrapper
 }                   from './context';
 
 const theme = createMuiTheme({
@@ -58,19 +58,15 @@ const theme = createMuiTheme({
 
 const client = new ApolloClient({
   uri: 'http://localhost:3001/graphql',
-  fetchOptions: {
-    credentials: 'include'
-  }
+  credentials: 'include'
 });
 
 const App = () => {
-  const authCookieExists = document.cookie.indexOf('connect.sid');
-
   return (
     <ThemeProvider theme={theme}>
       <ApolloProvider client={client}>
         <CssBaseline />
-        <AuthContext.Provider value={authCookieExists}>
+        <AuthWrapper>
           <Router>
             <Switch>
               <Redirect from="/logout" to="/login" />
@@ -91,7 +87,7 @@ const App = () => {
               </Route>
             </Switch>
           </Router>
-        </AuthContext.Provider>
+        </AuthWrapper>
       </ApolloProvider>
     </ThemeProvider>
   );

@@ -12,11 +12,11 @@ import {
 }                     from '../context';
 
 const PrivateRoute = ({ children, ...rest }) => {
-  const isAuthenticted = useAuth();
+  const { authenticated } = useAuth();
 
   return (
     <Route {...rest}>
-      {isAuthenticted ?
+      {authenticated ?
         children
         : <Redirect to="/login" />}
     </Route>

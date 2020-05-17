@@ -31,6 +31,9 @@ import {
   Page
 }                   from '../components';
 
+/* Context */
+import { useAuth } from '../context';
+
 const useStyles = makeStyles(theme => ({
   title: {
     marginTop: theme.spacing(10)
@@ -69,7 +72,8 @@ const LOGIN = gql`
 `;
 
 const Login = () => {
-  const [ login, { loading, data, error } ] = useMutation(LOGIN);
+  const [ login, { loading, error } ] = useMutation(LOGIN);
+  const { authenticated, setAuthenticated } = useAuth();
   const emailRef = React.useRef();
   const passwordRef = React.useRef();
   const classes = useStyles();
@@ -80,10 +84,13 @@ const Login = () => {
         email: emailRef.current.value,
         password: passwordRef.current.value
       }
-    });
+    })
+      .then(() => {
+        setAuthenticated(true);
+      });
   }
 
-  if (!data && !loading && !error) {
+  if (!authenticated) {
     return (
       <Page>
         <Typography
@@ -102,87 +109,68 @@ const Login = () => {
           The Jira integrated invoice manager
         </Typography>
         <Paper className={classes.loginContainer}>
-          <Grid 
-            component="form"
-            noValidate 
-            autoComplete="off"
-            item
-            container
-            direction="column"
-            justify="space-around"
-            alignItems="stretch"
-          >
-            <TextField
-              component={Grid}
-              className={classes.loginInput}
-              label="Email"
-              variant="outlined"
+          {loading ? 
+            <Grid 
               item
-              inputProps={{
-                ref: emailRef
-              }}
-            />
-            <TextField
-              component={Grid}
-              className={classes.loginInput}
-              label="Password"
-              type="password"
-              variant="outlined"
-              item
-              inputProps={{
-                ref: passwordRef
-              }}
-            />
-            <Grid
-              className={classes.loginButtonContainer}
-              item
-              xs={12}
+              container
+              direction="column"
+              justify="center"
+              alignItems="center"
             >
-              <Button
-                onClick={handleClick}
-                className={classes.loginButton}
-                variant="contained"
-                color="primary"
-              >
-                Login
-              </Button>
+              <CircularProgress />
             </Grid>
-          </Grid>
+            : 
+            <Grid 
+              component="form"
+              noValidate 
+              autoComplete="off"
+              item
+              container
+              direction="column"
+              justify="space-around"
+              alignItems="stretch"
+            >
+              <TextField
+                component={Grid}
+                className={classes.loginInput}
+                label="Email"
+                variant="outlined"
+                item
+                inputProps={{
+                  ref: emailRef
+                }}
+              />
+              <TextField
+                component={Grid}
+                className={classes.loginInput}
+                label="Password"
+                type="password"
+                variant="outlined"
+                item
+                inputProps={{
+                  ref: passwordRef
+                }}
+              />
+              <Grid
+                className={classes.loginButtonContainer}
+                item
+                xs={12}
+              >
+                <Button
+                  onClick={handleClick}
+                  className={classes.loginButton}
+                  variant="contained"
+                  color="primary"
+                >
+                  Login
+                </Button>
+              </Grid>
+            </Grid>
+          }
         </Paper>
       </Page>
     );
-  } else if (loading) {
-    return (
-      <Page>
-        <Typography
-          className={classes.title}
-          variant="h1"
-          align="center"
-          color="primary"
-        >
-          INJOY
-        </Typography>
-        <Typography
-          className={classes.subTitle}
-          variant="h5"
-          align="center"
-        >
-          The Jira integrated invoice manager
-        </Typography>
-        <Paper className={classes.loginContainer}>
-          <Grid 
-            item
-            container
-            direction="column"
-            justify="center"
-            alignItems="center"
-          >
-            <CircularProgress />
-          </Grid>
-        </Paper>
-      </Page>
-    );
-  } else if (data && !error) {
+  } else if (authenticated) {
     return <Redirect to="/" />
   }
 }
