@@ -22,9 +22,6 @@ import { Redirect } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { TextField } from "formik-material-ui";
 
-/* Yup */
-import * as Yup from "yup";
-
 /* Components */
 import { Page } from "../components";
 
@@ -39,36 +36,36 @@ const useStyles = makeStyles((theme) => ({
     margin: "auto",
     width: "200px",
   },
-  loginContainer: {
+  registerContainer: {
     marginTop: theme.spacing(4),
     padding: theme.spacing(3),
   },
-  loginInput: {
+  registerInput: {
     marginBottom: theme.spacing(1),
     width: "100%",
   },
-  loginButton: {
+  registerButton: {
     width: "100%",
   },
-  loginError: {
+  registerError: {
     marginBottom: theme.spacing(2),
   },
-  registerLink: {
+  loginLink: {
     textDecoration: "none",
     color: "#0c7489",
     "&:hover": {
       textDecoration: "underline",
     },
   },
-  registerMessage: {
+  loginMessage: {
     margin: 0,
     paddingTop: theme.spacing(1),
   },
 }));
 
-const LOGIN = gql`
-  mutation Login($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
+const REGISTER = gql`
+  mutation Register($user: UserInput!) {
+    register(user: $user) {
       id
       email
       firstName
@@ -77,30 +74,10 @@ const LOGIN = gql`
   }
 `;
 
-const LoginSchema = Yup.object().shape({
-  email: Yup.string().email("Must be a valid email").required("Required"),
-  password: Yup.string().trim().required("Required"),
-});
-
-const Login = () => {
-  const [login, { loading, error }] = useMutation(LOGIN);
+const Register = () => {
+  const [register, { loading, error }] = useMutation(REGISTER);
   const { authenticated } = useAuth();
   const classes = useStyles();
-
-  const handleSubmit = (values, { setSubmitting }) => {
-    login({
-      variables: {
-        email: values.email,
-        password: values.password,
-      },
-    })
-      .then(() => {
-        setSubmitting(false);
-      })
-      .catch((error) => {
-        setSubmitting(false);
-      });
-  };
 
   if (!authenticated()) {
     return (
@@ -116,7 +93,7 @@ const Login = () => {
         <Typography className={classes.subTitle} variant="h5" align="center">
           The Jira integrated invoice manager
         </Typography>
-        <Paper className={classes.loginContainer}>
+        <Paper className={classes.registerContainer}>
           {loading ? (
             <Grid
               item
@@ -129,9 +106,12 @@ const Login = () => {
             </Grid>
           ) : (
             <Formik
-              initialValues={{ email: "", password: "" }}
-              validationSchema={LoginSchema}
-              onSubmit={handleSubmit}
+              initialValues={{
+                email: "",
+                password: "",
+                firstName: "",
+                lastName: "",
+              }}
             >
               <Grid
                 component={Form}
@@ -143,7 +123,7 @@ const Login = () => {
               >
                 {error && (
                   <MuiAlert
-                    className={classes.loginError}
+                    className={classes.registerError}
                     elevation={2}
                     variant="filled"
                     severity="error"
@@ -154,7 +134,7 @@ const Login = () => {
                 <Grid item>
                   <Field
                     component={TextField}
-                    className={classes.loginInput}
+                    className={classes.registerInput}
                     label="Email"
                     variant="outlined"
                     name="email"
@@ -165,7 +145,29 @@ const Login = () => {
                 <Grid item>
                   <Field
                     component={TextField}
-                    className={classes.loginInput}
+                    className={classes.registerInput}
+                    label="First Name"
+                    variant="outlined"
+                    name="firstName"
+                    type="text"
+                    autoComplete="on"
+                  />
+                </Grid>
+                <Grid item>
+                  <Field
+                    component={TextField}
+                    className={classes.registerInput}
+                    label="Last Name"
+                    variant="outlined"
+                    name="lastName"
+                    type="text"
+                    autoComplete="on"
+                  />
+                </Grid>
+                <Grid item>
+                  <Field
+                    component={TextField}
+                    className={classes.registerInput}
                     label="Password"
                     variant="outlined"
                     name="password"
@@ -173,21 +175,21 @@ const Login = () => {
                     autoComplete="on"
                   />
                 </Grid>
-                <Grid className={classes.loginButtonContainer} item xs={12}>
+                <Grid className={classes.registerButtonContainer} item xs={12}>
                   <Button
-                    className={classes.loginButton}
+                    className={classes.registerButton}
                     variant="contained"
                     color="primary"
                     type="submit"
                   >
-                    Login
+                    Register
                   </Button>
                 </Grid>
                 <Grid item>
-                  <p className={classes.registerMessage}>
-                    Need an account?{" "}
-                    <a className={classes.registerLink} href="/register">
-                      Register
+                  <p className={classes.loginMessage}>
+                    Already have an account?{" "}
+                    <a className={classes.loginLink} href="/login">
+                      Login
                     </a>
                   </p>
                 </Grid>
@@ -202,4 +204,4 @@ const Login = () => {
   }
 };
 
-export default Login;
+export default Register;
