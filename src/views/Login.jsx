@@ -78,8 +78,11 @@ const LOGIN = gql`
 `;
 
 const LoginSchema = Yup.object().shape({
-  email: Yup.string().email("Must be a valid email").required("Required"),
-  password: Yup.string().trim().required("Required"),
+  email: Yup.string()
+    .email("Must be a valid email")
+    .required("Required")
+    .trim(),
+  password: Yup.string().required("Required").trim(),
 });
 
 const Login = () => {
