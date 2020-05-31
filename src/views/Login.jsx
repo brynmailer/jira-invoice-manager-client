@@ -53,6 +53,17 @@ const useStyles = makeStyles((theme) => ({
   loginError: {
     marginBottom: theme.spacing(2),
   },
+  registerLink: {
+    textDecoration: "none",
+    color: "#0c7489",
+    "&:hover": {
+      textDecoration: "underline",
+    },
+  },
+  registerMessage: {
+    margin: 0,
+    paddingTop: theme.spacing(1),
+  },
 }));
 
 const LOGIN = gql`
@@ -171,6 +182,14 @@ const Login = () => {
                   >
                     Login
                   </Button>
+                </Grid>
+                <Grid item>
+                  <p className={classes.registerMessage}>
+                    Need an account?{" "}
+                    <a className={classes.registerLink} href="/register">
+                      Register
+                    </a>
+                  </p>
                 </Grid>
               </Grid>
             </Formik>
