@@ -1,7 +1,4 @@
-import AtlassianPopup from './AtlassianPopup';
-import Overview       from './Overview';
+import AtlassianPopup from "./AtlassianPopup";
+import Overview from "./Overview";
 
-export {
-  AtlassianPopup,
-  Overview
-};
+export { AtlassianPopup, Overview };

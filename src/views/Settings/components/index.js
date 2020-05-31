@@ -1,7 +1,4 @@
-import AtlassianSites from './AtlassianSites';
-import CurrencyFormat from './CurrencyFormat';
+import AtlassianSites from "./AtlassianSites";
+import CurrencyFormat from "./CurrencyFormat";
 
-export {
-  AtlassianSites,
-  CurrencyFormat
-}
+export { AtlassianSites, CurrencyFormat };

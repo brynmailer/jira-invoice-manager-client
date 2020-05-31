@@ -1,23 +1,23 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useContext } from "react";
+
+/* JS Cookie */
+import Cookies from "js-cookie";
 
 export const AuthContext = createContext();
 
 export const AuthWrapper = ({ children }) => {
-  const authCookieExists = document.cookie.indexOf('connect.sid') === 0
-    ? true
-    : false;
-  const [ authenticated, setAuthenticated ] = useState(authCookieExists);
-
   const defaultContext = {
-    authenticated,
-    setAuthenticated
+    authenticated: () => (Cookies.get("connect.sid") ? true : false),
+    destroyCookie: () => {
+      Cookies.remove("connect.sid");
+    },
   };
 
   return (
     <AuthContext.Provider value={defaultContext}>
       {children}
     </AuthContext.Provider>
-  )
-}
+  );
+};
 
 export const useAuth = () => useContext(AuthContext);

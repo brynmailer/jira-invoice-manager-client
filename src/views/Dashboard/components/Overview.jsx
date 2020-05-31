@@ -1,33 +1,23 @@
-import React        from 'react';
+import React from "react";
 
 /* Material UI */
-import {
-  makeStyles
-}                   from '@material-ui/core/styles';
-import {
-  Fade,
-  Paper,
-  Grid,
-  Typography,
-  Button
-}                   from '@material-ui/core';
+import { makeStyles } from "@material-ui/core/styles";
+import { Fade, Paper, Grid, Typography, Button } from "@material-ui/core";
 
 /* React Router */
-import {
-  Link
-}                   from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(3),
-    height: '100%'
+    height: "100%",
   },
   grid: {
-    height: '80%'
+    height: "80%",
   },
   button: {
-    marginTop: theme.spacing(2)
-  }
+    marginTop: theme.spacing(2),
+  },
 }));
 
 const Overview = ({ authorized }) => {
@@ -36,10 +26,7 @@ const Overview = ({ authorized }) => {
   return (
     <Fade in={authorized}>
       <Paper className={classes.root}>
-        <Typography
-          variant="h3"
-          align="center"
-        >
+        <Typography variant="h3" align="center">
           Overview
         </Typography>
         <Grid
@@ -65,12 +52,7 @@ const Overview = ({ authorized }) => {
             >
               83 hours 15 mins
             </Typography>
-            <Typography
-              component={Grid}
-              variant="h5"
-              align="center"
-              item
-            >
+            <Typography component={Grid} variant="h5" align="center" item>
               worked this month
             </Typography>
             <Grid item>
@@ -101,28 +83,13 @@ const Overview = ({ authorized }) => {
             >
               Invoices:
             </Typography>
-            <Typography
-              component={Grid}
-              variant="h5"
-              align="center"
-              item
-            >
+            <Typography component={Grid} variant="h5" align="center" item>
               0 Overdue
             </Typography>
-            <Typography
-              component={Grid}
-              variant="h5"
-              align="center"
-              item
-            >
+            <Typography component={Grid} variant="h5" align="center" item>
               0 Pending
             </Typography>
-            <Typography
-              component={Grid}
-              variant="h5"
-              align="center"
-              item
-            >
+            <Typography component={Grid} variant="h5" align="center" item>
               23 Fulfilled
             </Typography>
             <Grid item>
@@ -141,6 +108,6 @@ const Overview = ({ authorized }) => {
       </Paper>
     </Fade>
   );
-}
+};
 
 export default Overview;

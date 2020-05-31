@@ -1,19 +1,12 @@
-import React                from 'react';
+import React from "react";
 
 /* React Router */
-import {
-  Switch,
-  Route
-}                           from 'react-router-dom';
+import { Switch, Route } from "react-router-dom";
 
 /* Views */
-import {
-  ViewInvoices,
-  CreateInvoice
-}                           from './views';
+import { ViewInvoices, CreateInvoice } from "./views";
 
 const Invoices = () => {
-
   return (
     <Switch>
       <Route path="/invoices/create">
@@ -24,6 +17,6 @@ const Invoices = () => {
       </Route>
     </Switch>
   );
-}
+};
 
 export default Invoices;
