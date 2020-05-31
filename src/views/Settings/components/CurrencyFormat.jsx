@@ -1,59 +1,47 @@
-import React              from 'react';
+import React from "react";
 
 /* Material UI */
-import {
-  makeStyles
-}                         from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 import {
   Card,
   CardHeader,
   CardContent,
   Grid,
   TextField,
-  IconButton
-}                         from '@material-ui/core';
-import SaveIcon           from '@material-ui/icons/Save';
+  IconButton,
+} from "@material-ui/core";
+import SaveIcon from "@material-ui/icons/Save";
 
 /* Formik */
-import {
-  Formik,
-  Form,
-  Field
-}                         from 'formik';
+import { Formik, Form, Field } from "formik";
 
 /* Formik Material UI */
-import {
-  TextField as FTextField
-}                         from 'formik-material-ui';
+import { TextField as FTextField } from "formik-material-ui";
 
 /* Yup */
-import * as Yup           from 'yup';
+import * as Yup from "yup";
 
 /* Currency.JS */
-import currency           from 'currency.js';
+import currency from "currency.js";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   topMargin: {
-    marginTop: theme.spacing(2)
-  }
+    marginTop: theme.spacing(2),
+  },
 }));
 
 const CurrencyFormatSchema = Yup.object().shape({
   code: Yup.string()
-    .min(3, 'Code is too short')
-    .max(3, 'Code is too long')
-    .required('Required'),
+    .min(3, "Code is too short")
+    .max(3, "Code is too long")
+    .required("Required"),
   precision: Yup.number()
-    .positive('Precision must be positive')
-    .min(1, 'Precision is too low')
-    .max(5, 'Precision is too high')
-    .required('Required'),
-  thousand: Yup.string()
-    .max(2, 'Separator is too long')
-    .required('Required'),
-  decimal: Yup.string()
-    .max(2, 'Decimal is too long')
-    .required('Required')
+    .positive("Precision must be positive")
+    .min(1, "Precision is too low")
+    .max(5, "Precision is too high")
+    .required("Required"),
+  thousand: Yup.string().max(2, "Separator is too long").required("Required"),
+  decimal: Yup.string().max(2, "Decimal is too long").required("Required"),
 });
 
 const CurrencyFormat = () => {
@@ -64,7 +52,7 @@ const CurrencyFormat = () => {
       <CardHeader
         title="Currency"
         titleTypographyProps={{
-          variant: 'h6'
+          variant: "h6",
         }}
         action={
           <IconButton>
@@ -75,24 +63,16 @@ const CurrencyFormat = () => {
       <CardContent>
         <Formik
           initialValues={{
-            code: 'AUD',
+            code: "AUD",
             precision: 2,
-            thousand: ',',
-            decimal: '.'
+            thousand: ",",
+            decimal: ".",
           }}
           validationSchema={CurrencyFormatSchema}
         >
           {({ values }) => (
-            <Grid
-              component={Form}
-              container
-              justify="space-around"
-              spacing={2}
-            >
-              <Grid
-                item
-                xs={6}
-              >
+            <Grid component={Form} container justify="space-around" spacing={2}>
+              <Grid item xs={6}>
                 <Field
                   component={FTextField}
                   label="Currency Code"
@@ -101,10 +81,7 @@ const CurrencyFormat = () => {
                   variant="outlined"
                 />
               </Grid>
-              <Grid
-                item
-                xs={6}
-              >
+              <Grid item xs={6}>
                 <Field
                   component={FTextField}
                   label="Precision"
@@ -113,10 +90,7 @@ const CurrencyFormat = () => {
                   variant="outlined"
                 />
               </Grid>
-              <Grid
-                item
-                xs={6}
-              >
+              <Grid item xs={6}>
                 <Field
                   component={FTextField}
                   label="Thousand Separator"
@@ -125,10 +99,7 @@ const CurrencyFormat = () => {
                   variant="outlined"
                 />
               </Grid>
-              <Grid
-                item
-                xs={6}
-              >
+              <Grid item xs={6}>
                 <Field
                   component={FTextField}
                   label="Decimal"
@@ -137,30 +108,22 @@ const CurrencyFormat = () => {
                   variant="outlined"
                 />
               </Grid>
-              <Grid
-                item
-                xs={6}
-              >
+              <Grid item xs={6}>
                 <TextField
                   label="Preview"
                   type="text"
                   variant="outlined"
                   InputProps={{
-                    readOnly: true
+                    readOnly: true,
                   }}
-                  value={
-                    currency(
-                      1000,
-                      {
-                        formatWithSymbol: true,
-                        pattern: '# !',
-                        symbol: values.code,
-                        precision: values.precision,
-                        separator: values.thousand,
-                        decimal: values.decimal
-                      }
-                    ).format()
-                  }
+                  value={currency(1000, {
+                    formatWithSymbol: true,
+                    pattern: "# !",
+                    symbol: values.code,
+                    precision: values.precision,
+                    separator: values.thousand,
+                    decimal: values.decimal,
+                  }).format()}
                 />
               </Grid>
             </Grid>
@@ -169,6 +132,6 @@ const CurrencyFormat = () => {
       </CardContent>
     </Card>
   );
-}
+};
 
 export default CurrencyFormat;

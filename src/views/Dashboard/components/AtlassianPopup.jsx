@@ -1,9 +1,7 @@
-import React        from 'react';
+import React from "react";
 
 /* Material UI */
-import {
-  makeStyles
-}                   from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 import {
   Modal,
   Backdrop,
@@ -11,30 +9,30 @@ import {
   Paper,
   Grid,
   Typography,
-  Button
-}                   from '@material-ui/core';
+  Button,
+} from "@material-ui/core";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   paper: {
     padding: theme.spacing(3),
-    marginRight: '-50%',
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
+    marginRight: "-50%",
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
     width: 300,
-    '&:focus': {
-      outline: '0px solid transparent'
-    }
+    "&:focus": {
+      outline: "0px solid transparent",
+    },
   },
   button: {
-    marginTop: theme.spacing(3)
-  }
+    marginTop: theme.spacing(3),
+  },
 }));
 
 const AtlassianPopup = ({ authorized, handleAuthorize }) => {
@@ -47,7 +45,7 @@ const AtlassianPopup = ({ authorized, handleAuthorize }) => {
       closeAfterTransition
       BackdropComponent={Backdrop}
       BackdropProps={{
-        timeout: 500
+        timeout: 500,
       }}
     >
       <Fade in={!authorized}>
@@ -59,12 +57,7 @@ const AtlassianPopup = ({ authorized, handleAuthorize }) => {
           justify="space-around"
           alignItems="stretch"
         >
-          <Typography
-            component={Grid}
-            variant="h5"
-            align="center"
-            item
-          >
+          <Typography component={Grid} variant="h5" align="center" item>
             Let's get you set up!
           </Typography>
           <Button
@@ -81,6 +74,6 @@ const AtlassianPopup = ({ authorized, handleAuthorize }) => {
       </Fade>
     </Modal>
   );
-}
+};
 
 export default AtlassianPopup;

@@ -1,64 +1,49 @@
-import React        from 'react';
+import React from "react";
 
 /* GraphQL */
-import ApolloClient from 'apollo-boost';
-import {
-  ApolloProvider
-}                   from '@apollo/react-hooks';
+import ApolloClient from "apollo-boost";
+import { ApolloProvider } from "@apollo/react-hooks";
 
 /* Material UI */
-import 'typeface-roboto';
-import {
-  createMuiTheme,
-  ThemeProvider
-}                   from '@material-ui/core/styles';
-import {
-  CssBaseline
-}                   from '@material-ui/core';
+import "typeface-roboto";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { CssBaseline } from "@material-ui/core";
 
 /* React Router */
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect
-}                   from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 /* Views */
 import {
   Login,
+  Logout,
   Dashboard,
   Settings,
   Invoices,
-  Projects
-}                   from './views';
+  Projects,
+} from "./views";
 
 /* Components */
-import {
-  PrivateRoute
-}                   from './components';
+import { PrivateRoute } from "./components";
 
 /* Context */
-import {
-  AuthWrapper
-}                   from './context';
+import { AuthWrapper } from "./context";
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: '#119da4',
-      main: '#0c7489',
-      dark: '#13505b'
+      light: "#119da4",
+      main: "#0c7489",
+      dark: "#13505b",
     },
     secondary: {
-      main: '#d7d9ce'
-    }
-  }
+      main: "#d7d9ce",
+    },
+  },
 });
 
 const client = new ApolloClient({
-  uri: 'http://localhost:3001/graphql',
-  credentials: 'include'
+  uri: "http://localhost:3001/graphql",
+  credentials: "include",
 });
 
 const App = () => {
@@ -69,7 +54,6 @@ const App = () => {
         <AuthWrapper>
           <Router>
             <Switch>
-              <Redirect from="/logout" to="/login" />
               <PrivateRoute exact path="/">
                 <Dashboard />
               </PrivateRoute>
@@ -82,6 +66,9 @@ const App = () => {
               <PrivateRoute path="/projects">
                 <Projects />
               </PrivateRoute>
+              <PrivateRoute path="/logout">
+                <Logout />
+              </PrivateRoute>
               <Route path="/login">
                 <Login />
               </Route>
@@ -91,6 +78,6 @@ const App = () => {
       </ApolloProvider>
     </ThemeProvider>
   );
-}
+};
 
 export default App;

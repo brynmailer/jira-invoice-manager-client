@@ -1,13 +1,8 @@
-import React              from 'react';
+import React from "react";
 
 /* Components */
-import {
-  AtlassianSites,
-  CurrencyFormat
-}                         from './components';
-import {
-  Page
-}                         from '../../components';
+import { AtlassianSites, CurrencyFormat } from "./components";
+import { Page } from "../../components";
 
 const Settings = () => {
   return (
@@ -16,6 +11,6 @@ const Settings = () => {
       <CurrencyFormat />
     </Page>
   );
-}
+};
 
 export default Settings;
