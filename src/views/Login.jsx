@@ -137,7 +137,7 @@ const Login = () => {
                     variant="filled"
                     severity="error"
                   >
-                    {error:}
+                    {error.message.substring(15)}
                   </MuiAlert>
                 )}
                 <Grid item>
