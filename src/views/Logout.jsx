@@ -54,7 +54,7 @@ const Logout = () => {
     };
 
     doLogout();
-  }, []);
+  }, [logout, destroyCookie, history]);
 
   return (
     <Page>
