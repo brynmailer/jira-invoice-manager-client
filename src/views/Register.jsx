@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 /* GraphQL */
 import { gql } from "apollo-boost";
@@ -21,6 +21,9 @@ import { Redirect } from "react-router-dom";
 /* Formik */
 import { Formik, Form, Field } from "formik";
 import { TextField } from "formik-material-ui";
+
+/* Yup */
+import * as Yup from "yup";
 
 /* Components */
 import { Page } from "../components";
@@ -74,10 +77,52 @@ const REGISTER = gql`
   }
 `;
 
+const RegisterSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Must be a valid email")
+    .max(255, "Email must be at most ${max} characters")
+    .required("Required")
+    .trim(),
+  firstName: Yup.string()
+    .max(255, "First name must be at most ${max} characters")
+    .required("Required")
+    .trim(),
+  lastName: Yup.string()
+    .max(255, "First name must be at most ${max} characters")
+    .required("Required")
+    .trim(),
+  password: Yup.string()
+    .min(8, "Password must at least ${min} characters")
+    .max(20, "Password must be at most ${max} characters")
+    .required("Required")
+    .trim(),
+});
+
 const Register = () => {
+  const [formData, setFormData] = useState({
+    email: "",
+    firstName: "",
+    lastName: "",
+    password: "",
+  });
   const [register, { loading, error }] = useMutation(REGISTER);
   const { authenticated } = useAuth();
   const classes = useStyles();
+
+  const handleSubmit = (values, { setSubmitting }) => {
+    setFormData(values);
+    register({
+      variables: {
+        user: values,
+      },
+    })
+      .then(() => {
+        setSubmitting(false);
+      })
+      .catch((error) => {
+        setSubmitting(false);
+      });
+  };
 
   if (!authenticated()) {
     return (
@@ -106,12 +151,9 @@ const Register = () => {
             </Grid>
           ) : (
             <Formik
-              initialValues={{
-                email: "",
-                password: "",
-                firstName: "",
-                lastName: "",
-              }}
+              initialValues={formData}
+              validationSchema={RegisterSchema}
+              onSubmit={handleSubmit}
             >
               <Grid
                 component={Form}
@@ -128,7 +170,10 @@ const Register = () => {
                     variant="filled"
                     severity="error"
                   >
-                    {error.message.substring(15)}
+                    {error.graphQLErrors[0].extensions.exception.code ===
+                    "ER_DUP_ENTRY"
+                      ? "An account with that email already exists."
+                      : error.message.substring(15)}
                   </MuiAlert>
                 )}
                 <Grid item>
