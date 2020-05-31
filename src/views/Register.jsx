@@ -170,9 +170,11 @@ const Register = () => {
                     variant="filled"
                     severity="error"
                   >
-                    {error.graphQLErrors[0].extensions.exception.code ===
-                    "ER_DUP_ENTRY"
-                      ? "An account with that email already exists."
+                    {error.graphQLErrors.length > 0
+                      ? error.graphQLErrors[0].extensions.exception.code ===
+                        "ER_DUP_ENTRY"
+                        ? "An account with that email already exists"
+                        : error.message.substring(15)
                       : error.message.substring(15)}
                   </MuiAlert>
                 )}
