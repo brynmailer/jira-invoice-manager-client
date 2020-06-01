@@ -6,13 +6,7 @@ import { useMutation } from "@apollo/react-hooks";
 
 /* Material UI */
 import { makeStyles } from "@material-ui/core/styles";
-import {
-  Typography,
-  Paper,
-  Grid,
-  Button,
-  CircularProgress,
-} from "@material-ui/core";
+import { Typography, Paper, Grid, Button } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
 
 /* React Router */
