@@ -2,7 +2,7 @@ import React from "react";
 
 /* Material UI */
 import { makeStyles } from "@material-ui/core/styles";
-import { Container } from "@material-ui/core";
+import { Container, CircularProgress } from "@material-ui/core";
 
 /* Components */
 import { Navbar } from "../components";
@@ -41,25 +41,35 @@ const useStyles = makeStyles((theme) => ({
     },
     overflowY: "scroll",
   },
+  spinner: {
+    position: "absolute",
+    left: "50%",
+    marginLeft: "-20px",
+    top: "50%",
+    marginTop: "-20px",
+  },
 }));
 
-const Page = ({ children, navbar = false }) => {
+const Page = ({ children, navbar = false, loading = false }) => {
   const classes = useStyles();
 
   return (
     <>
-      {navbar ? <Navbar /> : null}
+      {navbar && !loading && <Navbar />}
+      {loading && <CircularProgress className={classes.spinner} />}
       <div
         className={classes.background}
-        style={!navbar ? { height: "100%" } : null}
+        style={!navbar || loading ? { height: "100%" } : null}
       />
-      <Container
-        className={classes.root}
-        style={!navbar ? { height: "100%" } : null}
-        maxWidth="sm"
-      >
-        {children}
-      </Container>
+      {!loading && (
+        <Container
+          className={classes.root}
+          style={!navbar ? { height: "100%" } : null}
+          maxWidth="sm"
+        >
+          {children}
+        </Container>
+      )}
     </>
   );
 };

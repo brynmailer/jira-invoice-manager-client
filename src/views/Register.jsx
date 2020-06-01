@@ -119,14 +119,14 @@ const Register = () => {
       .then(() => {
         setSubmitting(false);
       })
-      .catch((error) => {
+      .catch(() => {
         setSubmitting(false);
       });
   };
 
   if (!authenticated()) {
     return (
-      <Page>
+      <Page loading={loading}>
         <Typography
           className={classes.title}
           variant="h1"
@@ -139,110 +139,98 @@ const Register = () => {
           The Jira integrated invoice manager
         </Typography>
         <Paper className={classes.registerContainer}>
-          {loading ? (
+          <Formik
+            initialValues={formData}
+            validationSchema={RegisterSchema}
+            onSubmit={handleSubmit}
+          >
             <Grid
+              component={Form}
               item
               container
               direction="column"
-              justify="center"
-              alignItems="center"
+              justify="space-around"
+              alignItems="stretch"
             >
-              <CircularProgress />
-            </Grid>
-          ) : (
-            <Formik
-              initialValues={formData}
-              validationSchema={RegisterSchema}
-              onSubmit={handleSubmit}
-            >
-              <Grid
-                component={Form}
-                item
-                container
-                direction="column"
-                justify="space-around"
-                alignItems="stretch"
-              >
-                {error && (
-                  <MuiAlert
-                    className={classes.registerError}
-                    elevation={2}
-                    variant="filled"
-                    severity="error"
-                  >
-                    {error.graphQLErrors.length > 0
-                      ? error.graphQLErrors[0].extensions.exception.code ===
-                        "ER_DUP_ENTRY"
-                        ? "An account with that email already exists"
-                        : error.message.substring(15)
-                      : error.message.substring(15)}
-                  </MuiAlert>
-                )}
-                <Grid item>
-                  <Field
-                    component={TextField}
-                    className={classes.registerInput}
-                    label="Email"
-                    variant="outlined"
-                    name="email"
-                    type="email"
-                    autoComplete="on"
-                  />
-                </Grid>
-                <Grid item>
-                  <Field
-                    component={TextField}
-                    className={classes.registerInput}
-                    label="First Name"
-                    variant="outlined"
-                    name="firstName"
-                    type="text"
-                    autoComplete="on"
-                  />
-                </Grid>
-                <Grid item>
-                  <Field
-                    component={TextField}
-                    className={classes.registerInput}
-                    label="Last Name"
-                    variant="outlined"
-                    name="lastName"
-                    type="text"
-                    autoComplete="on"
-                  />
-                </Grid>
-                <Grid item>
-                  <Field
-                    component={TextField}
-                    className={classes.registerInput}
-                    label="Password"
-                    variant="outlined"
-                    name="password"
-                    type="password"
-                    autoComplete="on"
-                  />
-                </Grid>
-                <Grid className={classes.registerButtonContainer} item xs={12}>
-                  <Button
-                    className={classes.registerButton}
-                    variant="contained"
-                    color="primary"
-                    type="submit"
-                  >
-                    Register
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <p className={classes.loginMessage}>
-                    Already have an account?{" "}
-                    <a className={classes.loginLink} href="/login">
-                      Login
-                    </a>
-                  </p>
-                </Grid>
+              {error && (
+                <MuiAlert
+                  className={classes.registerError}
+                  elevation={2}
+                  variant="filled"
+                  severity="error"
+                >
+                  {error.graphQLErrors.length > 0
+                    ? error.graphQLErrors[0].extensions.exception.code ===
+                      "ER_DUP_ENTRY"
+                      ? "An account with that email already exists"
+                      : error.message.substring(15)
+                    : error.message.substring(15)}
+                </MuiAlert>
+              )}
+              <Grid item>
+                <Field
+                  component={TextField}
+                  className={classes.registerInput}
+                  label="Email"
+                  variant="outlined"
+                  name="email"
+                  type="email"
+                  autoComplete="on"
+                />
               </Grid>
-            </Formik>
-          )}
+              <Grid item>
+                <Field
+                  component={TextField}
+                  className={classes.registerInput}
+                  label="First Name"
+                  variant="outlined"
+                  name="firstName"
+                  type="text"
+                  autoComplete="on"
+                />
+              </Grid>
+              <Grid item>
+                <Field
+                  component={TextField}
+                  className={classes.registerInput}
+                  label="Last Name"
+                  variant="outlined"
+                  name="lastName"
+                  type="text"
+                  autoComplete="on"
+                />
+              </Grid>
+              <Grid item>
+                <Field
+                  component={TextField}
+                  className={classes.registerInput}
+                  label="Password"
+                  variant="outlined"
+                  name="password"
+                  type="password"
+                  autoComplete="on"
+                />
+              </Grid>
+              <Grid className={classes.registerButtonContainer} item xs={12}>
+                <Button
+                  className={classes.registerButton}
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                >
+                  Register
+                </Button>
+              </Grid>
+              <Grid item>
+                <p className={classes.loginMessage}>
+                  Already have an account?{" "}
+                  <a className={classes.loginLink} href="/login">
+                    Login
+                  </a>
+                </p>
+              </Grid>
+            </Grid>
+          </Formik>
         </Paper>
       </Page>
     );

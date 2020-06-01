@@ -6,13 +6,7 @@ import { useMutation } from "@apollo/react-hooks";
 
 /* Material UI */
 import { makeStyles } from "@material-ui/core/styles";
-import {
-  Typography,
-  Paper,
-  Grid,
-  Button,
-  CircularProgress,
-} from "@material-ui/core";
+import { Typography, Paper, Grid, Button } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
 
 /* React Router */
@@ -100,14 +94,14 @@ const Login = () => {
       .then(() => {
         setSubmitting(false);
       })
-      .catch((error) => {
+      .catch(() => {
         setSubmitting(false);
       });
   };
 
   if (!authenticated()) {
     return (
-      <Page>
+      <Page loading={loading}>
         <Typography
           className={classes.title}
           variant="h1"
@@ -120,83 +114,71 @@ const Login = () => {
           The Jira integrated invoice manager
         </Typography>
         <Paper className={classes.loginContainer}>
-          {loading ? (
+          <Formik
+            initialValues={{ email: "", password: "" }}
+            validationSchema={LoginSchema}
+            onSubmit={handleSubmit}
+          >
             <Grid
+              component={Form}
               item
               container
               direction="column"
-              justify="center"
-              alignItems="center"
+              justify="space-around"
+              alignItems="stretch"
             >
-              <CircularProgress />
-            </Grid>
-          ) : (
-            <Formik
-              initialValues={{ email: "", password: "" }}
-              validationSchema={LoginSchema}
-              onSubmit={handleSubmit}
-            >
-              <Grid
-                component={Form}
-                item
-                container
-                direction="column"
-                justify="space-around"
-                alignItems="stretch"
-              >
-                {error && (
-                  <MuiAlert
-                    className={classes.loginError}
-                    elevation={2}
-                    variant="filled"
-                    severity="error"
-                  >
-                    {error.message.substring(15)}
-                  </MuiAlert>
-                )}
-                <Grid item>
-                  <Field
-                    component={TextField}
-                    className={classes.loginInput}
-                    label="Email"
-                    variant="outlined"
-                    name="email"
-                    type="email"
-                    autoComplete="on"
-                  />
-                </Grid>
-                <Grid item>
-                  <Field
-                    component={TextField}
-                    className={classes.loginInput}
-                    label="Password"
-                    variant="outlined"
-                    name="password"
-                    type="password"
-                    autoComplete="on"
-                  />
-                </Grid>
-                <Grid className={classes.loginButtonContainer} item xs={12}>
-                  <Button
-                    className={classes.loginButton}
-                    variant="contained"
-                    color="primary"
-                    type="submit"
-                  >
-                    Login
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <p className={classes.registerMessage}>
-                    Need an account?{" "}
-                    <a className={classes.registerLink} href="/register">
-                      Register
-                    </a>
-                  </p>
-                </Grid>
+              {error && (
+                <MuiAlert
+                  className={classes.loginError}
+                  elevation={2}
+                  variant="filled"
+                  severity="error"
+                >
+                  {error.message.substring(15)}
+                </MuiAlert>
+              )}
+              <Grid item>
+                <Field
+                  component={TextField}
+                  className={classes.loginInput}
+                  label="Email"
+                  variant="outlined"
+                  name="email"
+                  type="email"
+                  autoComplete="on"
+                />
               </Grid>
-            </Formik>
-          )}
+              <Grid item>
+                <Field
+                  component={TextField}
+                  className={classes.loginInput}
+                  label="Password"
+                  variant="outlined"
+                  name="password"
+                  type="password"
+                  autoComplete="on"
+                />
+              </Grid>
+              <Grid className={classes.loginButtonContainer} item xs={12}>
+                <Button
+                  className={classes.loginButton}
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                >
+                  Login
+                </Button>
+              </Grid>
+              <Grid item>
+                <p className={classes.registerMessage}>
+                  Need an account?{" "}
+                  <a className={classes.registerLink} href="/register">
+                    Register
+                  </a>
+                </p>
+              </Grid>
+            </Grid>
+          </Formik>
         </Paper>
       </Page>
     );
