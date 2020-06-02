@@ -109,7 +109,7 @@ const Register = () => {
       variables: {
         user: values,
       },
-    });
+    }).catch((e) => null);
     setSubmitting(false);
   };
 

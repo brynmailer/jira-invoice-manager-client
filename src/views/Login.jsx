@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 /* GraphQL */
 import { gql } from "apollo-boost";
@@ -81,16 +81,15 @@ const LoginSchema = Yup.object().shape({
 
 const Login = () => {
   const [login, { loading, error }] = useMutation(LOGIN);
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const { authenticated } = useAuth();
   const classes = useStyles();
 
   const handleSubmit = (values, { setSubmitting }) => {
+    setFormData(values);
     login({
-      variables: {
-        email: values.email,
-        password: values.password,
-      },
-    });
+      variables: values,
+    }).catch((e) => null);
     setSubmitting(false);
   };
 
@@ -110,7 +109,7 @@ const Login = () => {
         </Typography>
         <Paper className={classes.loginContainer}>
           <Formik
-            initialValues={{ email: "", password: "" }}
+            initialValues={formData}
             validationSchema={LoginSchema}
             onSubmit={handleSubmit}
           >
