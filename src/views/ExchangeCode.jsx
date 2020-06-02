@@ -28,7 +28,6 @@ const ExchangeCode = ({ location }) => {
 
   useEffect(() => {
     const queryObject = queryString.parse(location.search);
-    console.log(queryObject);
 
     exchangeAuthCode({
       variables: {
