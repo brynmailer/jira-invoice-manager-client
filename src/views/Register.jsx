@@ -168,7 +168,7 @@ const Register = () => {
                   label="Email"
                   variant="outlined"
                   name="email"
-                  type="email"
+                  type="text"
                   autoComplete="on"
                 />
               </Grid>
