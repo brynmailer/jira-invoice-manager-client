@@ -17,14 +17,14 @@ const GET_USER_REFRESH_TOKEN = gql`
 `;
 
 const Dashboard = () => {
-  const [authorized, setAuthorized] = useState(false);
   const { data, loading, error } = useQuery(GET_USER_REFRESH_TOKEN, {
     fetchPolicy: "no-cache",
   });
+  const [authorized, setAuthorized] = useState(false);
 
   useEffect(() => {
     let mounted = true;
-    if (!error && !loading && mounted)
+    if (!loading && !error && data && mounted)
       setAuthorized(data.currentUser.refreshToken ? true : false);
 
     return () => (mounted = false);
