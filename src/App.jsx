@@ -21,6 +21,7 @@ import {
   Settings,
   Invoices,
   Projects,
+  ExchangeCode,
 } from "./views";
 
 /* Components */
@@ -55,27 +56,14 @@ const App = () => {
         <AuthWrapper>
           <Router>
             <Switch>
-              <PrivateRoute exact path="/">
-                <Dashboard />
-              </PrivateRoute>
-              <PrivateRoute path="/settings">
-                <Settings />
-              </PrivateRoute>
-              <PrivateRoute path="/invoices">
-                <Invoices />
-              </PrivateRoute>
-              <PrivateRoute path="/projects">
-                <Projects />
-              </PrivateRoute>
-              <PrivateRoute path="/logout">
-                <Logout />
-              </PrivateRoute>
-              <Route path="/login">
-                <Login />
-              </Route>
-              <Route path="/register">
-                <Register />
-              </Route>
+              <PrivateRoute component={Dashboard} exact path="/" />
+              <PrivateRoute component={Settings} path="/settings" />
+              <PrivateRoute component={Invoices} path="/invoices" />
+              <PrivateRoute component={Projects} path="/projects" />
+              <PrivateRoute component={Logout} path="/logout" />
+              <PrivateRoute component={ExchangeCode} path="/exchange-code" />
+              <Route component={Login} path="/login" />
+              <Route component={Register} path="/register" />
             </Switch>
           </Router>
         </AuthWrapper>

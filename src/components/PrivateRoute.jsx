@@ -6,13 +6,16 @@ import { Route, Redirect } from "react-router-dom";
 /* Context */
 import { useAuth } from "../context";
 
-const PrivateRoute = ({ children, ...rest }) => {
+const PrivateRoute = ({ component: Component, ...rest }) => {
   const { authenticated } = useAuth();
 
   return (
-    <Route {...rest}>
-      {authenticated() ? children : <Redirect to="/login" />}
-    </Route>
+    <Route
+      {...rest}
+      render={(props) =>
+        authenticated() ? <Component {...props} /> : <Redirect to="/login" />
+      }
+    />
   );
 };
 
