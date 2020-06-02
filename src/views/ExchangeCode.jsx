@@ -22,20 +22,17 @@ const EXCHANGE_AUTH_CODE = gql`
 `;
 
 const ExchangeCode = ({ location }) => {
-  const [exchangeAuthCode, { loading, error }] = useMutation(
-    EXCHANGE_AUTH_CODE
-  );
+  const [exchangeAuthCode, { loading }] = useMutation(EXCHANGE_AUTH_CODE);
 
   useEffect(() => {
-    const queryObject = queryString.parse(location.search);
-
+    const { code, state } = queryString.parse(location.search);
     exchangeAuthCode({
       variables: {
-        code: queryObject.code,
-        state: queryObject.state,
+        code,
+        state,
       },
     });
-  }, []);
+  }, [location, exchangeAuthCode]);
 
   if (loading) {
     return <Page loading />;
