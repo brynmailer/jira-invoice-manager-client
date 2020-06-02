@@ -90,13 +90,8 @@ const Login = () => {
         email: values.email,
         password: values.password,
       },
-    })
-      .then(() => {
-        setSubmitting(false);
-      })
-      .catch(() => {
-        setSubmitting(false);
-      });
+    });
+    setSubmitting(false);
   };
 
   if (!authenticated()) {

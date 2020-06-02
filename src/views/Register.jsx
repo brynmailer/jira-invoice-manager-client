@@ -109,13 +109,8 @@ const Register = () => {
       variables: {
         user: values,
       },
-    })
-      .then(() => {
-        setSubmitting(false);
-      })
-      .catch(() => {
-        setSubmitting(false);
-      });
+    });
+    setSubmitting(false);
   };
 
   if (!authenticated()) {
