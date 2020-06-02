@@ -1,4 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+
+/* GraphQL */
+import { gql } from "apollo-boost";
+import { useLazyQuery } from "@apollo/react-hooks";
 
 /* Material UI */
 import { makeStyles } from "@material-ui/core/styles";
@@ -10,6 +14,7 @@ import {
   Grid,
   Typography,
   Button,
+  CircularProgress,
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -33,10 +38,28 @@ const useStyles = makeStyles((theme) => ({
   button: {
     marginTop: theme.spacing(3),
   },
+  loadingContainer: {
+    height: "92px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
 }));
 
-const AtlassianPopup = ({ authorized, handleAuthorize }) => {
+const GET_AUTH_URL = gql`
+  query GetAuthUrl {
+    authUrl
+  }
+`;
+
+const AtlassianPopup = ({ authorized }) => {
+  const [getAuthUrl, { data, loading, error }] = useLazyQuery(GET_AUTH_URL);
+  const [queryTriggered, setQueryTriggered] = useState(false);
   const classes = useStyles();
+
+  useEffect(() => {
+    if (!loading && !error && data) window.location.href = data.authUrl;
+  }, [data, loading, error]);
 
   return (
     <Modal
@@ -57,19 +80,30 @@ const AtlassianPopup = ({ authorized, handleAuthorize }) => {
           justify="space-around"
           alignItems="stretch"
         >
-          <Typography component={Grid} variant="h5" align="center" item>
-            Let's get you set up!
-          </Typography>
-          <Button
-            className={classes.button}
-            component={Grid}
-            color="primary"
-            variant="contained"
-            item
-            onClick={() => handleAuthorize(true)}
-          >
-            Log in with Atlassian
-          </Button>
+          {queryTriggered ? (
+            <div className={classes.loadingContainer}>
+              <CircularProgress />
+            </div>
+          ) : (
+            <>
+              <Typography component={Grid} variant="h5" align="center" item>
+                Let's get you set up!
+              </Typography>
+              <Button
+                className={classes.button}
+                component={Grid}
+                color="primary"
+                variant="contained"
+                item
+                onClick={() => {
+                  setQueryTriggered(true);
+                  getAuthUrl();
+                }}
+              >
+                LINK A JIRA SITE
+              </Button>
+            </>
+          )}
         </Paper>
       </Fade>
     </Modal>
