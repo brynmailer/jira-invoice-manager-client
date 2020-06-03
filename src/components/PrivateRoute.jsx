@@ -3,8 +3,8 @@ import React from "react";
 /* React Router */
 import { Route, Redirect } from "react-router-dom";
 
-/* Context */
-import { useAuth } from "../context";
+/* Utils */
+import { useAuth } from "../utils";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { authenticated } = useAuth();

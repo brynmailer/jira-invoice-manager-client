@@ -6,7 +6,6 @@ import { ApolloProvider } from "@apollo/react-hooks";
 
 /* Material UI */
 import "typeface-roboto";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { CssBaseline } from "@material-ui/core";
 
 /* React Router */
@@ -25,23 +24,10 @@ import {
 } from "./views";
 
 /* Components */
-import { PrivateRoute } from "./components";
+import { PrivateRoute, Theme } from "./components";
 
-/* Context */
-import { AuthWrapper } from "./context";
-
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      light: "#119da4",
-      main: "#0c7489",
-      dark: "#13505b",
-    },
-    secondary: {
-      main: "#d7d9ce",
-    },
-  },
-});
+/* Utils */
+import { AuthWrapper, SettingsWrapper } from "./utils";
 
 const client = new ApolloClient({
   uri: "http://localhost:3001/graphql",
@@ -50,25 +36,27 @@ const client = new ApolloClient({
 
 const App = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <ApolloProvider client={client}>
-        <CssBaseline />
-        <AuthWrapper>
-          <Router>
-            <Switch>
-              <PrivateRoute component={Dashboard} exact path="/" />
-              <PrivateRoute component={Settings} path="/settings" />
-              <PrivateRoute component={Invoices} path="/invoices" />
-              <PrivateRoute component={Projects} path="/projects" />
-              <PrivateRoute component={Logout} path="/logout" />
-              <PrivateRoute component={ExchangeCode} path="/exchange-code" />
-              <Route component={Login} path="/login" />
-              <Route component={Register} path="/register" />
-            </Switch>
-          </Router>
-        </AuthWrapper>
-      </ApolloProvider>
-    </ThemeProvider>
+    <ApolloProvider client={client}>
+      <CssBaseline />
+      <SettingsWrapper>
+        <Theme>
+          <AuthWrapper>
+            <Router>
+              <Switch>
+                <PrivateRoute component={Dashboard} exact path="/" />
+                <PrivateRoute component={Settings} path="/settings" />
+                <PrivateRoute component={Invoices} path="/invoices" />
+                <PrivateRoute component={Projects} path="/projects" />
+                <PrivateRoute component={Logout} path="/logout" />
+                <PrivateRoute component={ExchangeCode} path="/exchange-code" />
+                <Route component={Login} path="/login" />
+                <Route component={Register} path="/register" />
+              </Switch>
+            </Router>
+          </AuthWrapper>
+        </Theme>
+      </SettingsWrapper>
+    </ApolloProvider>
   );
 };
 

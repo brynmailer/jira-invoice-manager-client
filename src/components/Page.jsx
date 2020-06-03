@@ -7,6 +7,9 @@ import { Container, CircularProgress } from "@material-ui/core";
 /* Components */
 import { Navbar } from "../components";
 
+/* Utils */
+import { useSettings } from "../utils";
+
 const useStyles = makeStyles((theme) => ({
   background: {
     position: "absolute",
@@ -20,9 +23,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("sm")]: {
       height: `calc(100% - 64px)`,
     },
-    backgroundColor: "#d7d9ce",
-    backgroundImage:
-      "-webkit-linear-gradient(30deg, #119da4 50vh, #d7d9ce 50vw)",
     opacity: 0.2,
   },
   root: {
@@ -51,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Page = ({ children, navbar = false, loading = false }) => {
+  const { darkMode } = useSettings();
   const classes = useStyles();
 
   return (
@@ -59,7 +60,20 @@ const Page = ({ children, navbar = false, loading = false }) => {
       {loading && <CircularProgress className={classes.spinner} />}
       <div
         className={classes.background}
-        style={!navbar || loading ? { height: "100%" } : null}
+        style={{
+          ...(!navbar || loading ? { height: "100%" } : null),
+          ...(darkMode
+            ? {
+                backgroundColor: "#2e2e2e",
+                backgroundImage:
+                  "-webkit-linear-gradient(30deg, #035054 50vh, #2e2e2e 50vw)",
+              }
+            : {
+                backgroundColor: "#d7d9ce",
+                backgroundImage:
+                  "-webkit-linear-gradient(30deg, #119da4 50vh, #d7d9ce 50vw)",
+              }),
+        }}
       />
       {!loading && (
         <Container

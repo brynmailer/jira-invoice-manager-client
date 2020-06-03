@@ -22,8 +22,8 @@ import * as Yup from "yup";
 /* Components */
 import { Page } from "../components";
 
-/* Context */
-import { useAuth } from "../context";
+/* Utils */
+import { useAuth } from "../utils";
 
 const useStyles = makeStyles((theme) => ({
   title: {

@@ -24,6 +24,9 @@ import * as Yup from "yup";
 /* Currency.JS */
 import currency from "currency.js";
 
+/* Utils */
+import { useSettings } from "../../../utils";
+
 const useStyles = makeStyles((theme) => ({
   topMargin: {
     marginTop: theme.spacing(2),
@@ -45,7 +48,13 @@ const CurrencyFormatSchema = Yup.object().shape({
 });
 
 const CurrencyFormat = () => {
+  const { currencyFormat, setCurrencyFormat } = useSettings();
   const classes = useStyles();
+
+  const handleSubmit = (values, { setSubmitting }) => {
+    setCurrencyFormat(values);
+    setSubmitting(false);
+  };
 
   return (
     <Card className={classes.topMargin}>
@@ -55,23 +64,25 @@ const CurrencyFormat = () => {
           variant: "h6",
         }}
         action={
-          <IconButton>
+          <IconButton type="submit" form="currencyFormatForm">
             <SaveIcon />
           </IconButton>
         }
       />
       <CardContent>
         <Formik
-          initialValues={{
-            code: "AUD",
-            precision: 2,
-            thousand: ",",
-            decimal: ".",
-          }}
+          initialValues={currencyFormat}
           validationSchema={CurrencyFormatSchema}
+          onSubmit={handleSubmit}
         >
           {({ values }) => (
-            <Grid component={Form} container justify="space-around" spacing={2}>
+            <Grid
+              component={Form}
+              container
+              justify="space-around"
+              spacing={2}
+              id="currencyFormatForm"
+            >
               <Grid item xs={6}>
                 <Field
                   component={FTextField}

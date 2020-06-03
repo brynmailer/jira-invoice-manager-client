@@ -10,8 +10,8 @@ import { useHistory } from "react-router-dom";
 /* Components */
 import { Page } from "../components";
 
-/* Context */
-import { useAuth } from "../context";
+/* Utils */
+import { useAuth } from "../utils";
 
 const LOGOUT = gql`
   mutation Logout {

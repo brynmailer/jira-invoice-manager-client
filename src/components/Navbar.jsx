@@ -50,7 +50,7 @@ const Navbar = () => {
     <>
       <AppBar position="fixed">
         <Toolbar>
-          <IconButton color="secondary" size="small" onClick={toggleMenu(true)}>
+          <IconButton color="inherit" onClick={toggleMenu(true)}>
             <MenuIcon />
           </IconButton>
           <Typography className={classes.location} variant="h6">
