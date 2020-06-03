@@ -22,7 +22,7 @@ const EXCHANGE_AUTH_CODE = gql`
 `;
 
 const ExchangeCode = ({ location }) => {
-  const [exchangeAuthCode, { loading }] = useMutation(EXCHANGE_AUTH_CODE);
+  const [exchangeAuthCode, { data, loading }] = useMutation(EXCHANGE_AUTH_CODE);
 
   useEffect(() => {
     const { code, state } = queryString.parse(location.search);
@@ -34,10 +34,10 @@ const ExchangeCode = ({ location }) => {
     });
   }, [location, exchangeAuthCode]);
 
-  if (loading) {
-    return <Page loading />;
-  } else {
+  if (data && !loading) {
     return <Redirect to="/" />;
+  } else {
+    return <Page loading />;
   }
 };
 
