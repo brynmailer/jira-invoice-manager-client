@@ -105,12 +105,12 @@ const Register = () => {
 
   const handleSubmit = (values, { setSubmitting }) => {
     setFormData(values);
+    setSubmitting(false);
     register({
       variables: {
         user: values,
       },
     }).catch((e) => null);
-    setSubmitting(false);
   };
 
   if (!authenticated()) {

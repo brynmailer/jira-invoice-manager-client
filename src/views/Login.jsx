@@ -87,10 +87,10 @@ const Login = () => {
 
   const handleSubmit = (values, { setSubmitting }) => {
     setFormData(values);
+    setSubmitting(false);
     login({
       variables: values,
     }).catch((e) => null);
-    setSubmitting(false);
   };
 
   if (!authenticated()) {
