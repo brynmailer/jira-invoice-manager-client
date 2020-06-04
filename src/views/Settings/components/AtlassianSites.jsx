@@ -1,57 +1,102 @@
 import React from "react";
 
+/* GraphQL */
+import { gql } from "apollo-boost";
+import { useQuery, useLazyQuery } from "@apollo/react-hooks";
+
+/* React Router */
+import { Redirect } from "react-router-dom";
+
 /* Material Table */
 import MaterialTable from "material-table";
 
-import { Card } from "@material-ui/core";
+/* Material UI */
+import { makeStyles } from "@material-ui/core/styles";
+import { Card, CircularProgress } from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+  loadingCard: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: theme.spacing(4),
+  },
+}));
+
+const GET_ACCESSIBLE_SITES = gql`
+  query GetAccessibleSites {
+    accessibleResources {
+      name
+    }
+  }
+`;
+
+const GET_AUTH_URL = gql`
+  query GetAuthUrl {
+    authUrl
+  }
+`;
 
 const AtlassianSites = () => {
-  const [sites, setSites] = React.useState({
-    columns: [{ title: "Domain", field: "domain" }],
-    data: [{ domain: "example.atlassian.net" }],
+  const {
+    data: accessibleResourcesData,
+    loading: accessibleResourcesLoading,
+    error: accessibleResourcesError,
+  } = useQuery(GET_ACCESSIBLE_SITES, {
+    fetchPolicy: "no-cache",
   });
+  const [
+    getAuthUrl,
+    { data: authUrlData, loading: authUrlLoading, error: authUrlError },
+  ] = useLazyQuery(GET_AUTH_URL);
+  const classes = useStyles();
 
-  return (
-    <MaterialTable
-      title="Managed Atlassian Sites"
-      components={{
-        Container: Card,
-      }}
-      options={{
-        search: false,
-        pageSize: 3,
-        pageSizeOptions: [3],
-        actionsColumnIndex: -1,
-      }}
-      columns={sites.columns}
-      data={sites.data}
-      actions={[
-        {
-          icon: "add",
-          tooltip: "Add Site",
-          isFreeAction: true,
-          onClick: () => {
-            setSites((prevSites) => {
-              const data = [...prevSites.data];
-              data.push({ domain: "example.atlassian.net" });
-              return { ...prevSites, data };
-            });
+  if (
+    accessibleResourcesLoading ||
+    accessibleResourcesError ||
+    authUrlLoading ||
+    authUrlError
+  ) {
+    return (
+      <Card className={classes.loadingCard}>
+        <CircularProgress />
+      </Card>
+    );
+  } else if (authUrlData) {
+    window.location.href = authUrlData.authUrl;
+    return (
+      <Card className={classes.loadingCard}>
+        <CircularProgress />
+      </Card>
+    );
+  } else {
+    return (
+      <MaterialTable
+        title="Managed Atlassian Sites"
+        components={{
+          Container: Card,
+        }}
+        options={{
+          search: false,
+          pageSize: 3,
+          pageSizeOptions: [3],
+          actionsColumnIndex: -1,
+        }}
+        columns={[{ name: "Domain", field: "domain" }]}
+        data={accessibleResourcesData.accessibleResources.map((resource) => ({
+          domain: resource.name + ".atlassian.net",
+        }))}
+        actions={[
+          {
+            icon: "add",
+            tooltip: "Add Site",
+            isFreeAction: true,
+            onClick: getAuthUrl,
           },
-        },
-        (rowData) => ({
-          icon: "delete",
-          tooltip: "Forget Site",
-          onClick: (event, rowData) => {
-            setSites((prevSites) => {
-              const data = [...prevSites.data];
-              data.splice(data.indexOf(rowData), 1);
-              return { ...prevSites, data };
-            });
-          },
-        }),
-      ]}
-    />
-  );
+        ]}
+      />
+    );
+  }
 };
 
 export default AtlassianSites;
