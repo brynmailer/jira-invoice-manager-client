@@ -56,8 +56,6 @@ const Navbar = () => {
           <Typography className={classes.location} variant="h6">
             {location.pathname === "/"
               ? "Dashboard"
-              : location.pathname === "/projects"
-              ? "Projects"
               : location.pathname === "/invoices"
               ? "Invoices"
               : location.pathname === "/settings"
@@ -80,7 +78,7 @@ const Navbar = () => {
           onKeyDown={toggleMenu(false)}
         >
           <List>
-            {["Dashboard", "Projects", "Invoices"].map((text, index) => (
+            {["Dashboard", "Invoices"].map((text, index) => (
               <ListItem
                 component={Link}
                 button

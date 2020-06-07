@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
   button: {
     marginTop: theme.spacing(2),
   },
+  spacer: {
+    paddingBottom: theme.spacing(2),
+  },
 }));
 
 const Overview = ({ authorized }) => {
@@ -33,76 +36,55 @@ const Overview = ({ authorized }) => {
           className={classes.grid}
           container
           direction="column"
-          justify="space-around"
-          alignItems="stretch"
+          justify="center"
+          alignItems="center"
         >
-          <Grid
+          <Typography
+            component={Grid}
+            variant="h4"
+            color="primary"
+            align="center"
             item
-            container
-            direction="column"
-            justify="center"
-            alignItems="center"
           >
-            <Typography
-              component={Grid}
-              variant="h4"
-              color="primary"
-              align="center"
-              item
-            >
-              83 hours 15 mins
-            </Typography>
-            <Typography component={Grid} variant="h5" align="center" item>
-              worked this month
-            </Typography>
-            <Grid item>
-              <Button
-                className={classes.button}
-                component={Link}
-                color="primary"
-                variant="outlined"
-                to="/projects"
-              >
-                View Your Projects
-              </Button>
-            </Grid>
-          </Grid>
-          <Grid
+            83 hours 15 mins
+          </Typography>
+          <Typography
+            className={classes.spacer}
+            component={Grid}
+            variant="h5"
+            align="center"
             item
-            container
-            direction="column"
-            justify="center"
-            alignItems="center"
           >
-            <Typography
-              component={Grid}
-              variant="h4"
+            worked this month
+          </Typography>
+          <Typography
+            component={Grid}
+            variant="h4"
+            color="primary"
+            align="center"
+            item
+          >
+            Invoices:
+          </Typography>
+          <Typography component={Grid} variant="h5" align="center" item>
+            0 Overdue
+          </Typography>
+          <Typography component={Grid} variant="h5" align="center" item>
+            0 Pending
+          </Typography>
+          <Typography component={Grid} variant="h5" align="center" item>
+            23 Fulfilled
+          </Typography>
+          <Grid item>
+            <Button
+              className={classes.button}
+              component={Link}
               color="primary"
-              align="center"
-              item
+              variant="outlined"
+              to="/invoices"
             >
-              Invoices:
-            </Typography>
-            <Typography component={Grid} variant="h5" align="center" item>
-              0 Overdue
-            </Typography>
-            <Typography component={Grid} variant="h5" align="center" item>
-              0 Pending
-            </Typography>
-            <Typography component={Grid} variant="h5" align="center" item>
-              23 Fulfilled
-            </Typography>
-            <Grid item>
-              <Button
-                className={classes.button}
-                component={Link}
-                color="primary"
-                variant="outlined"
-                to="/invoices"
-              >
-                View Your Invoices
-              </Button>
-            </Grid>
+              View Your Invoices
+            </Button>
           </Grid>
         </Grid>
       </Paper>
