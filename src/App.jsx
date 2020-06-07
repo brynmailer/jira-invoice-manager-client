@@ -46,7 +46,6 @@ const App = () => {
                 <PrivateRoute component={Dashboard} exact path="/" />
                 <PrivateRoute component={Settings} path="/settings" />
                 <PrivateRoute component={Invoices} path="/invoices" />
-                <PrivateRoute component={Projects} path="/projects" />
                 <PrivateRoute component={Logout} path="/logout" />
                 <PrivateRoute component={ExchangeCode} path="/exchange-code" />
                 <Route component={Login} path="/login" />
