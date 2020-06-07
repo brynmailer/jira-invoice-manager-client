@@ -4,9 +4,6 @@ import React from "react";
 import { gql } from "apollo-boost";
 import { useQuery, useLazyQuery } from "@apollo/react-hooks";
 
-/* React Router */
-import { Redirect } from "react-router-dom";
-
 /* Material Table */
 import MaterialTable from "material-table";
 
