@@ -4,13 +4,16 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 
 /* Views */
-import { ViewInvoices, CreateInvoice } from "./views";
+import { ViewInvoices, ViewInvoice, CreateInvoice } from "./views";
 
 const Invoices = () => {
   return (
     <Switch>
       <Route path="/invoices/create">
         <CreateInvoice />
+      </Route>
+      <Route path="/invoices/:invoiceId">
+        <ViewInvoice />
       </Route>
       <Route path="/invoices">
         <ViewInvoices />

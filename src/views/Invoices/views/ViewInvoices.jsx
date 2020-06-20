@@ -4,6 +4,9 @@ import React from "react";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 
+/* Material UI */
+import { TableRow } from "@material-ui/core";
+
 /* Material Table */
 import MaterialTable from "material-table";
 
@@ -52,12 +55,26 @@ const ViewInvoices = () => {
             },
           ]}
           data={data.currentUser.invoices}
+          localization={{
+            header: {
+              actions: "",
+            },
+          }}
           actions={[
             {
               icon: "add",
-              tooltip: "Create Invoice",
+              tooltip: "Create invoice",
               isFreeAction: true,
               onClick: () => history.push("/invoices/create"),
+            },
+            {
+              icon: "keyboard_arrow_right",
+              tooltip: "View invoice",
+              iconProps: {
+                fontSize: "small",
+              },
+              onClick: (event, rowData) =>
+                history.push(`/invoices/${rowData.id}`),
             },
           ]}
           options={{
@@ -66,6 +83,7 @@ const ViewInvoices = () => {
             sorting: true,
             pageSize: 10,
             pageSizeOptions: [10],
+            actionsColumnIndex: -1,
           }}
         />
       </Page>
